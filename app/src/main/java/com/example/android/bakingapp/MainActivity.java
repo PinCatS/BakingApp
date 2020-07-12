@@ -1,5 +1,6 @@
 package com.example.android.bakingapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -38,6 +39,7 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public void onRecipeClick(Recipe recipe) {
-        Timber.d("Recipe " + recipe.getName() + " clicked");
+        Intent intent = new Intent(this, RecipeDatailsActivity.class);
+        startActivity(intent);
     }
 }
