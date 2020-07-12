@@ -11,21 +11,21 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-public class RecipesMasterListAdapter extends RecyclerView.Adapter<RecipesMasterListAdapter.RecipesViewHolder> {
+public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.RecipeHolder> {
 
     List<Recipe> recipesData;
 
     @NonNull
     @Override
-    public RecipesViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public RecipeHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.recipe_list_item, parent, false);
-        return new RecipesViewHolder(view);
+        return new RecipeHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecipesViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull RecipeHolder holder, int position) {
         holder.recipeName.setText(recipesData.get(position).getName());
     }
 
@@ -38,10 +38,10 @@ public class RecipesMasterListAdapter extends RecyclerView.Adapter<RecipesMaster
         this.recipesData = recipesData;
     }
 
-    static class RecipesViewHolder extends RecyclerView.ViewHolder {
+    public static class RecipeHolder extends RecyclerView.ViewHolder {
         TextView recipeName;
 
-        public RecipesViewHolder(@NonNull View itemView) {
+        public RecipeHolder(@NonNull View itemView) {
             super(itemView);
             recipeName = itemView.findViewById(R.id.tv_recipe_name);
         }
