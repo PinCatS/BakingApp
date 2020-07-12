@@ -11,6 +11,10 @@ public class Recipe {
     private int servings;
     private String recipeImage;
 
+    public String getName() {
+        return name;
+    }
+
     public static class Step {
         private int id;
         private String shortDescription;
