@@ -13,7 +13,17 @@ import java.util.List;
 
 public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.RecipeHolder> {
 
-    List<Recipe> recipesData;
+    List<Recipe> mRecipesData;
+    private OnRecipeClickListener recipeClickListener;
+
+    public RecipeListAdapter(OnRecipeClickListener recipeClickListener) {
+        this.recipeClickListener = recipeClickListener;
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull RecipeHolder holder, int position) {
+        holder.recipeName.setText(mRecipesData.get(position).getName());
+    }
 
     @NonNull
     @Override
@@ -25,25 +35,31 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Re
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecipeHolder holder, int position) {
-        holder.recipeName.setText(recipesData.get(position).getName());
-    }
-
-    @Override
     public int getItemCount() {
-        return (recipesData == null ? 0 : recipesData.size());
+        return (mRecipesData == null ? 0 : mRecipesData.size());
     }
 
-    public void setRecipesData(List<Recipe> recipesData) {
-        this.recipesData = recipesData;
+    public void setRecipesData(List<Recipe> mRecipesData) {
+        this.mRecipesData = mRecipesData;
     }
 
-    public static class RecipeHolder extends RecyclerView.ViewHolder {
+    public interface OnRecipeClickListener {
+        void onRecipeClick(Recipe recipe);
+    }
+
+    public class RecipeHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView recipeName;
 
         public RecipeHolder(@NonNull View itemView) {
             super(itemView);
             recipeName = itemView.findViewById(R.id.tv_recipe_name);
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View view) {
+            Recipe recipe = mRecipesData.get(getAdapterPosition());
+            recipeClickListener.onRecipeClick(recipe);
         }
     }
 }

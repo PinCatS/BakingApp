@@ -12,7 +12,8 @@ import java.util.List;
 
 import timber.log.Timber;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements
+        RecipeListAdapter.OnRecipeClickListener {
     private static final String TAG = MainActivity.class.getSimpleName();
 
     @Override
@@ -28,11 +29,15 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
 
-        RecipeListAdapter recipesAdapter = new RecipeListAdapter();
+        RecipeListAdapter recipesAdapter = new RecipeListAdapter(this);
 
         List<Recipe> recipes = DataUtils.loadRecipesFromJson(this);
         recipesAdapter.setRecipesData(recipes);
         recyclerView.setAdapter(recipesAdapter);
     }
 
+    @Override
+    public void onRecipeClick(Recipe recipe) {
+        Timber.d("Recipe " + recipe.getName() + " clicked");
+    }
 }
