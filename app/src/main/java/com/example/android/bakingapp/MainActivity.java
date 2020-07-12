@@ -40,6 +40,7 @@ public class MainActivity extends AppCompatActivity implements
     @Override
     public void onRecipeClick(Recipe recipe) {
         Intent intent = new Intent(this, RecipeDatailsActivity.class);
+        intent.putExtra(RecipeDatailsActivity.EXTRA_RECIPE, recipe);
         startActivity(intent);
     }
 }
