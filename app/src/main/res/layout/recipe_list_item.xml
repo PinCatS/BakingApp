@@ -9,7 +9,7 @@
         android:id="@+id/tv_recipe_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Recipe_name"
-        tools:textSize="22sp" />
+        android:textSize="22sp"
+        tools:text="Recipe_name" />
 
 </LinearLayout>

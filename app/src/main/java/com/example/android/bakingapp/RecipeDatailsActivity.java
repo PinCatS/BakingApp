@@ -4,8 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
-
-import timber.log.Timber;
+import androidx.fragment.app.FragmentManager;
 
 public class RecipeDatailsActivity extends AppCompatActivity {
     public static final String EXTRA_RECIPE = "extra-recipe";
@@ -26,6 +25,14 @@ public class RecipeDatailsActivity extends AppCompatActivity {
             recipe = intent.getParcelableExtra(EXTRA_RECIPE);
         }
 
-        Timber.d("Incoming recipe: " + recipe);
+        RecipeDetailsMasterListFragment recipeDetailFragment = new RecipeDetailsMasterListFragment();
+        recipeDetailFragment.setRecipeSteps(recipe.getSteps());
+
+        // Add the fragment to its container using a FragmentManager and a Transaction
+        FragmentManager fragmentManager = getSupportFragmentManager();
+
+        fragmentManager.beginTransaction()
+                .add(R.id.frame_recipe_container, recipeDetailFragment)
+                .commit();
     }
 }

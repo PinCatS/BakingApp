@@ -50,6 +50,10 @@ public class Recipe implements Parcelable {
         dest.writeString(recipeImage);
     }
 
+    public List<Step> getSteps() {
+        return steps;
+    }
+
     @Override
     public String toString() {
         return "Recipe{" +
@@ -68,6 +72,10 @@ public class Recipe implements Parcelable {
         private String description;
         private String videoUrl;
         private String thumbnailUrl;
+
+        public String getShortDescription() {
+            return shortDescription;
+        }
 
         public static final Parcelable.Creator<Step> CREATOR = new Parcelable.Creator<Step>() {
             public Step createFromParcel(Parcel in) {
