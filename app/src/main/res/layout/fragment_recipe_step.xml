@@ -18,22 +18,4 @@
         android:textSize="22sp"
         tools:text="1. Preheat the oven to 350. Butter a 9 deep dish pie pan." />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/btn_prev_step"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Prev" />
-
-        <Button
-            android:id="@+id/btn_next_step"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Next" />
-    </LinearLayout>
 </LinearLayout>

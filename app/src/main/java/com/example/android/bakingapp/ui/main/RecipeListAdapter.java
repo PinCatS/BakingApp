@@ -1,4 +1,4 @@
-package com.example.android.bakingapp;
+package com.example.android.bakingapp.ui.main;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,6 +8,9 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.android.bakingapp.R;
+import com.example.android.bakingapp.data.Recipe;
 
 import java.util.List;
 
@@ -44,7 +47,7 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Re
     }
 
     public interface OnRecipeClickListener {
-        void onRecipeClick(Recipe recipe);
+        void onRecipeClick(Recipe recipe, int position);
     }
 
     public class RecipeHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -58,8 +61,9 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Re
 
         @Override
         public void onClick(View view) {
-            Recipe recipe = mRecipesData.get(getAdapterPosition());
-            recipeClickListener.onRecipeClick(recipe);
+            int position = getAdapterPosition();
+            Recipe recipe = mRecipesData.get(position);
+            recipeClickListener.onRecipeClick(recipe, position);
         }
     }
 }

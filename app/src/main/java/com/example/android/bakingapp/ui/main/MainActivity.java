@@ -1,15 +1,17 @@
-package com.example.android.bakingapp;
+package com.example.android.bakingapp.ui.main;
 
 import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.android.bakingapp.utils.DataUtils;
-
-import java.util.List;
+import com.example.android.bakingapp.R;
+import com.example.android.bakingapp.data.Recipe;
+import com.example.android.bakingapp.ui.details.RecipeDatailsActivity;
+import com.example.android.bakingapp.utils.InjectorUtils;
 
 import timber.log.Timber;
 
@@ -32,15 +34,17 @@ public class MainActivity extends AppCompatActivity implements
 
         RecipeListAdapter recipesAdapter = new RecipeListAdapter(this);
 
-        List<Recipe> recipes = DataUtils.loadRecipesFromJson(this);
-        recipesAdapter.setRecipesData(recipes);
+        MainActivityModelFactory modelViewFactory = InjectorUtils.provideMainActivityModelFactory(this);
+        MainActivityViewModel modelView = new ViewModelProvider(this, modelViewFactory).get(MainActivityViewModel.class);
+        recipesAdapter.setRecipesData(modelView.getRecipes());
         recyclerView.setAdapter(recipesAdapter);
     }
 
     @Override
-    public void onRecipeClick(Recipe recipe) {
+    public void onRecipeClick(Recipe recipe, int position) {
         Intent intent = new Intent(this, RecipeDatailsActivity.class);
         intent.putExtra(RecipeDatailsActivity.EXTRA_RECIPE, recipe);
+        intent.putExtra(RecipeDatailsActivity.EXTRA_RECIPE_INDEX, position);
         startActivity(intent);
     }
 }

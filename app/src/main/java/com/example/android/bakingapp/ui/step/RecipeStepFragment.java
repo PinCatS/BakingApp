@@ -1,4 +1,4 @@
-package com.example.android.bakingapp;
+package com.example.android.bakingapp.ui.step;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,8 +10,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.android.bakingapp.R;
+import com.example.android.bakingapp.data.Recipe;
+
 public class RecipeStepFragment extends Fragment {
-    public static final String EXTRA_STEP = "extra-step";
 
     Recipe.Step step;
 

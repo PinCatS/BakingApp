@@ -1,4 +1,4 @@
-package com.example.android.bakingapp;
+package com.example.android.bakingapp.ui.details;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,6 +12,10 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.android.bakingapp.R;
+import com.example.android.bakingapp.data.Recipe;
+import com.example.android.bakingapp.ui.step.StepActivity;
+
 import java.util.List;
 
 import timber.log.Timber;
@@ -20,7 +24,7 @@ public class RecipeDetailsMasterListFragment extends Fragment implements
         RecipeDetailsMasterListAdapter.OnRecipeStepClickListener {
 
     List<Recipe.Step> mRecipeSteps;
-    int mCurrentStepIndex;
+    int mRecipeIndex;
 
     public RecipeDetailsMasterListFragment() {
     }
@@ -40,8 +44,6 @@ public class RecipeDetailsMasterListFragment extends Fragment implements
         recipeDetailsAdapter.setStepsData(mRecipeSteps);
         recyclerView.setAdapter(recipeDetailsAdapter);
 
-        mCurrentStepIndex = -1;
-
         return rootView;
     }
 
@@ -49,24 +51,29 @@ public class RecipeDetailsMasterListFragment extends Fragment implements
         mRecipeSteps = recipeSteps;
     }
 
+    public void setRecipeIndex(int mRecipeIndex) {
+        this.mRecipeIndex = mRecipeIndex;
+    }
+
     @Override
     public void onRecipeStepClick(Recipe.Step step, int viewType, int position) {
-        mCurrentStepIndex = position;
+
         switch (viewType) {
             case RecipeDetailsMasterListAdapter.VIEW_TYPE_INGREDIENTS:
                 Timber.d("Click on the ingredients");
                 break;
             case RecipeDetailsMasterListAdapter.VIEW_TYPE_STEP:
-                startStepActivity(step);
+                startStepActivity(position);
                 break;
             default:
                 Timber.d("Invalid view type, value of %s", viewType);
         }
     }
 
-    private void startStepActivity(Recipe.Step step) {
+    private void startStepActivity(int position) {
         Intent intent = new Intent(getActivity(), StepActivity.class);
-        intent.putExtra(RecipeStepFragment.EXTRA_STEP, step);
+        intent.putExtra(StepActivity.EXTRA_CURRENT_STEP_INDEX, position);
+        intent.putExtra(StepActivity.EXTRA_RECIPE_INDEX, mRecipeIndex);
         startActivity(intent);
     }
 }
