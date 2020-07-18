@@ -20,6 +20,7 @@ public class RecipeDetailsMasterListFragment extends Fragment implements
         RecipeDetailsMasterListAdapter.OnRecipeStepClickListener {
 
     List<Recipe.Step> mRecipeSteps;
+    int mCurrentStepIndex;
 
     public RecipeDetailsMasterListFragment() {
     }
@@ -39,6 +40,8 @@ public class RecipeDetailsMasterListFragment extends Fragment implements
         recipeDetailsAdapter.setStepsData(mRecipeSteps);
         recyclerView.setAdapter(recipeDetailsAdapter);
 
+        mCurrentStepIndex = -1;
+
         return rootView;
     }
 
@@ -47,17 +50,23 @@ public class RecipeDetailsMasterListFragment extends Fragment implements
     }
 
     @Override
-    public void onRecipeStepClick(Recipe.Step step, int viewType) {
-        Intent intent = null;
+    public void onRecipeStepClick(Recipe.Step step, int viewType, int position) {
+        mCurrentStepIndex = position;
         switch (viewType) {
             case RecipeDetailsMasterListAdapter.VIEW_TYPE_INGREDIENTS:
                 Timber.d("Click on the ingredients");
                 break;
             case RecipeDetailsMasterListAdapter.VIEW_TYPE_STEP:
-                Timber.d("Click on the step: " + step.getShortDescription());
+                startStepActivity(step);
                 break;
             default:
-                Timber.d("Invalid view type, value of " + viewType);
+                Timber.d("Invalid view type, value of %s", viewType);
         }
+    }
+
+    private void startStepActivity(Recipe.Step step) {
+        Intent intent = new Intent(getActivity(), StepActivity.class);
+        intent.putExtra(RecipeStepFragment.EXTRA_STEP, step);
+        startActivity(intent);
     }
 }

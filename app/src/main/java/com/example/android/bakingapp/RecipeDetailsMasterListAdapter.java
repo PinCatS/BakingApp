@@ -69,7 +69,7 @@ public class RecipeDetailsMasterListAdapter extends RecyclerView.Adapter<RecipeD
     }
 
     public interface OnRecipeStepClickListener {
-        void onRecipeStepClick(Recipe.Step step, int viewType);
+        void onRecipeStepClick(Recipe.Step step, int viewType, int position);
     }
 
     class RecipesViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -88,11 +88,11 @@ public class RecipeDetailsMasterListAdapter extends RecyclerView.Adapter<RecipeD
             int viewType = getItemViewType();
             switch (viewType) {
                 case VIEW_TYPE_INGREDIENTS:
-                    mStepsClickListener.onRecipeStepClick(null, viewType);
+                    mStepsClickListener.onRecipeStepClick(null, viewType, -1);
                     break;
                 case VIEW_TYPE_STEP:
                     Recipe.Step step = mStepsData.get(getAdapterPosition() - 1);
-                    mStepsClickListener.onRecipeStepClick(step, viewType);
+                    mStepsClickListener.onRecipeStepClick(step, viewType, getAdapterPosition() - 1);
                     break;
                 default:
                     throw new IllegalArgumentException("Invalid view type, value of " + viewType);

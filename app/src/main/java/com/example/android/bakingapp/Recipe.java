@@ -77,6 +77,10 @@ public class Recipe implements Parcelable {
             return shortDescription;
         }
 
+        public String getDescription() {
+            return description;
+        }
+
         public static final Parcelable.Creator<Step> CREATOR = new Parcelable.Creator<Step>() {
             public Step createFromParcel(Parcel in) {
                 return new Step(in);
